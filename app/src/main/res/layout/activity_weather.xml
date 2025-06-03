@@ -1,10 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    在SwipeRefreshLayout之外再次嵌套了一个DrawerLayout 用于滑动菜单的展示  第一个控件是主菜单  第二个是滑动菜单的内容  也就是全球搜索城市的功能-->
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--    这里在ScrollView之外嵌套了一层 SwipeRefreshLayout 就可以进行下拉刷新的功能实现-->
+        <ScrollView
+            android:id="@+id/weatherLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/now" />
+                <include layout="@layout/forecast" />
+                <include layout="@layout/life_index" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+<!--    这里用FrameLayout引入了全球搜索的功能  起到切换城市的作用-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="#F89">
+
+        <fragment
+            android:id="@+id/placeFragment"
+            android:name="com.example.sunnyweather.ui.place.PlaceFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"/>
+    </FrameLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
+

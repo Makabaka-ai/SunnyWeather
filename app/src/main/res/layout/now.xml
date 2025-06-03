@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:id="@+id/nowLayout"
+    android:layout_width="match_parent"
+    android:layout_height="530dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:fitsSystemWindows="true">
+
+
+            <!--        用于切换不同城市的按钮 -->
+            <Button
+                android:id="@+id/navBtn"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_home" />
+
+            <!--        城市名称 处于最上面-->
+            <!--在这个里面 marginStart 表示距离相对起始位置的距离 这里就代表离左边框的距离
+                    marginEnd 距离相对结束位置的距离  在这里就是说这个图标的右侧会留下这么大的距离
+                    gravity就是对齐方式   singleLine内容只显示在一行上面 超出也不会换行
+                    ellipsize表示超出后的省略方式middle表示在文本中间进行省略   abc....lmn
+                    -->
+            <TextView
+                android:id="@+id/placeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:ellipsize="middle"
+                android:textColor="#000"
+                android:textSize="22sp" />
+
+        </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/bodyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+<!--        当前气温-->
+        <TextView
+            android:id="@+id/currentTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#fff"
+            android:textSize="70sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+<!--            天气状况-->
+            <TextView
+                android:id="@+id/currentSky"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+<!--            中间分割线-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:text="|" />
+
+<!--            当前空气指数-->
+            <TextView
+                android:id="@+id/currentAQI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
