@@ -14,10 +14,12 @@ import kotlin.coroutines.suspendCoroutine
 object SunnyWeatherNetwork {
 
     //    获得代理对象  此处就用到了对外暴露的create方法
-    private val placeService = ServiceCreator.create<PlaceService>()
+    private val placeService = ServiceCreator.create<PlaceService>()  //获取地方的代理对象
+    private val weatherService = ServiceCreator.create(WeatherService::class.java)  //获取天气的代理对象
 
     //    发起searchPlaces的请求，这里用suspendCoroutine函数进行了简化操作 此函数只能在协程作用域内或者挂起函数内才能使用
-    suspend fun searchPlaces(query: String) = placeService.searchPlaces(query).await()//发起请求后，当前协程会阻塞住直到响应了请求，await里就会取出数据模型对象并且会进行resume恢复协程的进行
+    suspend fun searchPlaces(query: String) = placeService.searchPlaces(query)
+        .await()//发起请求后，当前协程会阻塞住直到响应了请求，await里就会取出数据模型对象并且会进行resume恢复协程的进行
 
     //    为Call扩展了await挂起函数，所有返回值是Call类型的Retroﬁt网络请求接口就都可以直接调用await()函数
     private suspend fun <T> retrofit2.Call<T>.await(): T {
@@ -33,13 +35,21 @@ object SunnyWeatherNetwork {
                         RuntimeException("response body is null")
                     )
                 }
+
                 override fun onFailure(call: retrofit2.Call<T?>, t: Throwable) {
                     continuation.resumeWithException(t)  //请求失败将异常也传进去
                 }
-
             })
         }
     }
+
+
+    //    天气网络请求  与place的写法基本一致
+    suspend fun getDailyWeather(lng: String, lat: String) =
+        weatherService.getDailyWeather(lng, lat).await()
+
+    suspend fun getRealtimeWeather(lng: String, lat: String) =
+        weatherService.getRealtimeWeather(lng, lat).await()
 
 
 }

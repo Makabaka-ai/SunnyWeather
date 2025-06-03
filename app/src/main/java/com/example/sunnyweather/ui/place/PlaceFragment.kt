@@ -1,12 +1,14 @@
 package com.example.sunnyweather.ui.place
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Transformation
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -16,7 +18,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sunnyweather.MainActivity
 import com.example.sunnyweather.R
+import com.example.sunnyweather.ui.weather.WeatherActivity
 
 class PlaceFragment : Fragment() {
 
@@ -34,6 +38,22 @@ class PlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        判断是否已经有存储的城市  有的话就直接从SharedPreferences中获取数据展示  不需要再去发送网络请求
+//        如果只写到这里就会产生只能看某一个城市的天气的问题  就需要有切换城市的操作
+//        这里的两个判断操作 一个是判断是否存储 一个是判断当前是不是MainActivity  防止出现无限循环的情况
+//        现在placeFragment已经嵌在weatherActivity里，就会产生无限跳转的情况
+        if (viewModel.isPlaceSaved() && activity is MainActivity) {
+            val place = viewModel.getSavedPlace()
+            val intent = Intent(context, WeatherActivity::class.java).apply {
+                putExtra("location_lng", place.location.lng)
+                putExtra("location_lat", place.location.lat)
+                putExtra("place_name", place.name)
+            }
+            startActivity(intent)
+            activity?.finish()
+            return
+        }
 
 //        这里也是RecyclerView的标准写法 进行Manager和Adapter的赋值操作
         var linearLayoutManager = LinearLayoutManager(activity)
@@ -90,18 +110,17 @@ class PlaceFragment : Fragment() {
                         imageView.visibility = View.GONE
                         viewModel.placeList.addAll(place)
                         adapter.notifyDataSetChanged()
-                    }else {
+                    } else {
+//                        没有数据就不展示
                         recyclerView.visibility = View.GONE
                         var imageView = view.findViewById<ImageView>(R.id.bgImageView)
                         imageView.visibility = View.VISIBLE
-                        Toast.makeText(activity, "未能查询到任何地点", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "未能查询到任何地点", Toast.LENGTH_SHORT)
+                            .show()
                         result.exceptionOrNull()?.printStackTrace()
                     }
                 })
             }
-
         })
-
-
     }
 }
