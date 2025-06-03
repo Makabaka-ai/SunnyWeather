@@ -10,7 +10,7 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 
-//这个单例类是统一的网络数据源访问入口，对所有网络请求的API进行封装
+//这个单例类是统一的网络数据源访问入口，对所有网络请求的API进行封装  也就是通过这里进行网络请求
 object SunnyWeatherNetwork {
 
     //    获得代理对象  此处就用到了对外暴露的create方法
@@ -35,7 +35,6 @@ object SunnyWeatherNetwork {
                         RuntimeException("response body is null")
                     )
                 }
-
                 override fun onFailure(call: retrofit2.Call<T?>, t: Throwable) {
                     continuation.resumeWithException(t)  //请求失败将异常也传进去
                 }
@@ -43,8 +42,7 @@ object SunnyWeatherNetwork {
         }
     }
 
-
-    //    天气网络请求  与place的写法基本一致
+    //    天气网络请求  与place的写法基本一致  也是对WeatherService里的请求方法进行了封装
     suspend fun getDailyWeather(lng: String, lat: String) =
         weatherService.getDailyWeather(lng, lat).await()
 

@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:src="@drawable/ic_coldrisk" />
 
 <!--                指定文字内容-->
@@ -49,14 +49,14 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:text="感冒" />
 
                     <TextView
                         android:id="@+id/coldRiskText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:textSize="16sp"
@@ -121,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:src="@drawable/ic_ultraviolet" />
 
             <LinearLayout
@@ -133,10 +133,10 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="实时紫外线" />
+                    android:text="紫外线" />
 
                 <TextView
                     android:id="@+id/ultravioletText"

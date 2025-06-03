@@ -12,6 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.CoroutineContext
 
 //这个是仓库层，主要作用是判断请求数据从本地获取还是网络层获取，类似于缓存和数据获取的中间层，如果缓存有就去缓存拿，没有才去进行网络数据获取操作
+//真正去进行发送请求的地方
 object Repository {
 
     //    仓库层里的方法需要将异步获取的数据以响应式编程方式将数据反给上一层，一般用LiveData对象进行操作

@@ -3,7 +3,7 @@ package com.example.sunnyweather.logic.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-//Retrofit构建器
+//Retrofit构建器 可以在这里进行根路径的定义、动态代理对象的创建
 object ServiceCreator {
 //    发出请求后拼接的基本路径
     private const val BASE_URL = "https://api.caiyunapp.com/"
