@@ -43,6 +43,8 @@ class PlaceFragment : Fragment() {
 //        如果只写到这里就会产生只能看某一个城市的天气的问题  就需要有切换城市的操作
 //        这里的两个判断操作 一个是判断是否存储 一个是判断当前是不是MainActivity  防止出现无限循环的情况
 //        现在placeFragment已经嵌在weatherActivity里，就会产生无限跳转的情况
+
+//        这里调用的viewModel的判断方法 实际上还是调用的Dao里面的方法
         if (viewModel.isPlaceSaved() && activity is MainActivity) {
             val place = viewModel.getSavedPlace()
             val intent = Intent(context, WeatherActivity::class.java).apply {
